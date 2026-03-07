@@ -98,7 +98,7 @@ const SearchPage = () => {
                 
                 <div className="flex justify-between items-start gap-3">
                   <div className="flex flex-col gap-[4px] min-w-0">
-                    <h3 className="m-0 text-[1rem] font-[800] leading-tight text-[#131728] tracking-tight text-left">{test.name}</h3>
+                    <h3 className="m-0 text-[0.95rem] font-[700] leading-tight text-[#131728] tracking-tight text-left">{test.name}</h3>
                     
                     <div className="flex flex-wrap gap-2 mt-1 justify-start">
                       <span className="bg-[#e6fcf5] text-[#0f766e] px-2 py-0.5 rounded-[4px] text-[0.7rem] font-[700]">{test.tag}</span>
@@ -120,18 +120,18 @@ const SearchPage = () => {
                       <div className="flex flex-col items-end gap-2 h-full justify-center mt-2.5">
                          <button 
                            onClick={(e) => { e.stopPropagation(); handleAddToCartClick(test); }}
-                           className="bg-[#6b7280] flex items-center justify-center text-white px-5 py-2 rounded-[6px] font-[700] text-[0.85rem] hover:bg-[#4b5563] transition-colors h-[36px]"
+                           className="bg-[#e8f5e9] text-[#2e7d32] border border-[#c8e6c9] flex items-center justify-center px-5 py-2 rounded-[6px] font-[700] text-[0.85rem] hover:bg-[#c8e6c9] transition-colors h-[32px] min-w-[70px] shadow-sm"
                          >
-                           Add to Cart
+                           Add
                          </button>
                       </div>
                     ) : test.isHomePickup ? (
                       <div className="flex flex-col items-end gap-2 h-full justify-center mt-2.5">
                          <button 
                            onClick={(e) => { e.stopPropagation(); handleAddToCartClick(test); }}
-                           className="bg-[#6b7280] flex items-center justify-center text-white px-5 py-2 rounded-[6px] font-[700] text-[0.85rem] hover:bg-[#4b5563] transition-colors h-[36px]"
+                           className="bg-[#e8f5e9] text-[#2e7d32] border border-[#c8e6c9] flex items-center justify-center px-5 py-2 rounded-[6px] font-[700] text-[0.85rem] hover:bg-[#c8e6c9] transition-colors h-[32px] min-w-[70px] shadow-sm"
                          >
-                           Add to Cart
+                           Add
                          </button>
                       </div>
                     ) : (
@@ -140,8 +140,11 @@ const SearchPage = () => {
                           <span className="font-[800] text-[1.1rem] text-[#111827]">{test.b2b}</span>
                           <span className="text-[#6b7280] line-through text-[0.8rem] font-[500]">{test.mrp}</span>
                         </div>
-                        <button className="bg-[#111827] text-white px-4 py-1.5 rounded-[6px] font-[800] text-[0.8rem] hover:bg-black transition-colors w-fit">
-                          Book Test
+                        <button 
+                          onClick={(e) => { e.stopPropagation(); handleAddToCartClick(test); }}
+                          className="bg-[#e8f5e9] text-[#2e7d32] border border-[#c8e6c9] flex items-center justify-center px-5 py-2 rounded-[6px] font-[700] text-[0.85rem] hover:bg-[#c8e6c9] transition-colors h-[32px] min-w-[70px] shadow-sm"
+                        >
+                          Add
                         </button>
                       </div>
                     )}
@@ -261,7 +264,7 @@ const SearchPage = () => {
               <button 
                 onClick={proceedToCart}
                 disabled={selectedPatients.length === 0}
-                className={`px-6 py-2.5 rounded-[10px] font-[800] text-white transition-colors ${selectedPatients.length > 0 ? 'bg-[#848b98] hover:bg-[#6b7280]' : 'bg-[#e5e7eb] cursor-not-allowed'}`}
+                className={`px-6 py-2.5 rounded-[10px] font-[800] text-white transition-colors ${selectedPatients.length > 0 ? 'bg-[#111827] hover:bg-black' : 'bg-[#e5e7eb] cursor-not-allowed'}`}
               >
                 Add to Cart
               </button>
