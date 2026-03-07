@@ -64,8 +64,6 @@ export const CartProvider = ({ children }) => {
         return {
           ...item,
           selectedAddress: location,
-          b2b: location.price, // dynamic center-specific pricing
-          mrpPrice: location.mrp
         };
       }
       return item;

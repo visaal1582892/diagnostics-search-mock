@@ -177,17 +177,147 @@ export const mockUser = {
 // Mock collection centers / pickup addresses for address selection modal
 export const mockPickupLocations = {
   cheapestFirst: [
-    { id: "L1", name: "Vijaya Diagnostic Centre", address: "Plot 9, Software Units Layout, Madhapur", city: "Hyderabad", pincode: "500081", distance: "2.4 km", price: "₹120", mrp: "₹600", rating: 4.5, isNablCertified: true },
-    { id: "L2", name: "Tulip Laboratory", address: "6-3-248, Begumpet", city: "Hyderabad", pincode: "500016", distance: "5.1 km", price: "₹125", mrp: "₹620", rating: 4.2, isNablCertified: false },
-    { id: "L3", name: "Medlife Labs", address: "Plot 23, Kondapur Main Road", city: "Hyderabad", pincode: "500084", distance: "3.8 km", price: "₹130", mrp: "₹640", rating: 4.0, isNablCertified: true },
-    { id: "L4", name: "Apollo Diagnostics", address: "Road No 36, Jubilee Hills", city: "Hyderabad", pincode: "500033", distance: "7.2 km", price: "₹145", mrp: "₹680", rating: 4.7, isNablCertified: true },
-    { id: "L5", name: "Dr Lal PathLabs", address: "Flat 2, Ameerpet X Roads", city: "Hyderabad", pincode: "500016", distance: "6.4 km", price: "₹150", mrp: "₹700", rating: 4.3, isNablCertified: false }
+    { 
+      id: "L1", 
+      name: "Vijaya Diagnostic Centre", 
+      company: "Vijaya Group", 
+      isMedplusCollaborated: true, 
+      address: "Plot 9, Software Units Layout, Madhapur", 
+      city: "Hyderabad", pincode: "500081", 
+      distance: "2.4 km", 
+      price: "₹120", 
+      mrp: "₹600", 
+      rating: 4.5, 
+      isNablCertified: true,
+      supportedTests: ["TEST-CBP-STORE", "TEST-LIP-STORE", "TEST-THY-STORE", "TEST-HBA-STORE", "TEST-LFT-STORE", "TEST-MRI-BRAIN", "TEST-CT-CHEST", "TEST-XRAY-CHEST"]
+    },
+    { 
+      id: "L2", 
+      name: "Tulip Laboratory", 
+      company: "Tulip Health", 
+      isMedplusCollaborated: false, 
+      address: "6-3-248, Begumpet", 
+      city: "Hyderabad", pincode: "500016", 
+      distance: "5.1 km", 
+      price: "₹125", 
+      mrp: "₹620", 
+      rating: 4.2, 
+      isNablCertified: false,
+      supportedTests: ["TEST-CBP-STORE", "TEST-LIP-STORE", "TEST-THY-STORE", "TEST-HBA-STORE", "TEST-LFT-STORE"] // No imaging/radiology
+    },
+    { 
+      id: "L3", 
+      name: "Medlife Labs", 
+      company: "Medlife", 
+      isMedplusCollaborated: true, 
+      address: "Plot 23, Kondapur Main Road", 
+      city: "Hyderabad", pincode: "500084", 
+      distance: "3.8 km", 
+      price: "₹130", 
+      mrp: "₹640", 
+      rating: 4.0, 
+      isNablCertified: true,
+      supportedTests: ["TEST-CBP-STORE", "TEST-LIP-STORE", "TEST-THY-STORE", "TEST-HBA-STORE", "TEST-LFT-STORE", "TEST-MRI-BRAIN", "TEST-CT-CHEST"] // No X-Ray
+    },
+    { 
+      id: "L4", 
+      name: "Apollo Diagnostics", 
+      company: "Apollo", 
+      isMedplusCollaborated: true, 
+      address: "Road No 36, Jubilee Hills", 
+      city: "Hyderabad", pincode: "500033", 
+      distance: "7.2 km", 
+      price: "₹145", 
+      mrp: "₹680", 
+      rating: 4.7, 
+      isNablCertified: true,
+      supportedTests: ["TEST-CBP-STORE", "TEST-LIP-STORE", "TEST-THY-STORE", "TEST-HBA-STORE", "TEST-LFT-STORE", "TEST-MRI-BRAIN", "TEST-CT-CHEST", "TEST-XRAY-CHEST"]
+    },
+    { 
+      id: "L5", 
+      name: "Dr Lal PathLabs", 
+      company: "Dr Lal PathLabs", 
+      isMedplusCollaborated: false, 
+      address: "Flat 2, Ameerpet X Roads", 
+      city: "Hyderabad", pincode: "500016", 
+      distance: "6.4 km", 
+      price: "₹150", 
+      mrp: "₹700", 
+      rating: 4.3, 
+      isNablCertified: false,
+      supportedTests: ["TEST-CBP-STORE", "TEST-LIP-STORE", "TEST-THY-STORE", "TEST-HBA-STORE", "TEST-LFT-STORE", "TEST-XRAY-CHEST"] // No MRI/CT
+    }
   ],
   nearestFirst: [
-    { id: "L1", name: "Vijaya Diagnostic Centre", address: "Plot 9, Software Units Layout, Madhapur", city: "Hyderabad", pincode: "500081", distance: "2.4 km", price: "₹120", mrp: "₹600", rating: 4.5, isNablCertified: true },
-    { id: "L3", name: "Medlife Labs", address: "Plot 23, Kondapur Main Road", city: "Hyderabad", pincode: "500084", distance: "3.8 km", price: "₹130", mrp: "₹640", rating: 4.0, isNablCertified: true },
-    { id: "L2", name: "Tulip Laboratory", address: "6-3-248, Begumpet", city: "Hyderabad", pincode: "500016", distance: "5.1 km", price: "₹125", mrp: "₹620", rating: 4.2, isNablCertified: false },
-    { id: "L5", name: "Dr Lal PathLabs", address: "Flat 2, Ameerpet X Roads", city: "Hyderabad", pincode: "500016", distance: "6.4 km", price: "₹150", mrp: "₹700", rating: 4.3, isNablCertified: false },
-    { id: "L4", name: "Apollo Diagnostics", address: "Road No 36, Jubilee Hills", city: "Hyderabad", pincode: "500033", distance: "7.2 km", price: "₹145", mrp: "₹680", rating: 4.7, isNablCertified: true }
+    { 
+      id: "L1", 
+      name: "Vijaya Diagnostic Centre", 
+      company: "Vijaya Group", 
+      isMedplusCollaborated: true, 
+      address: "Plot 9, Software Units Layout, Madhapur", 
+      city: "Hyderabad", pincode: "500081", 
+      distance: "2.4 km", 
+      price: "₹120", 
+      mrp: "₹600", 
+      rating: 4.5, 
+      isNablCertified: true,
+      supportedTests: ["TEST-CBP-STORE", "TEST-LIP-STORE", "TEST-THY-STORE", "TEST-HBA-STORE", "TEST-LFT-STORE", "TEST-MRI-BRAIN", "TEST-CT-CHEST", "TEST-XRAY-CHEST"]
+    },
+    { 
+      id: "L3", 
+      name: "Medlife Labs", 
+      company: "Medlife", 
+      isMedplusCollaborated: true, 
+      address: "Plot 23, Kondapur Main Road", 
+      city: "Hyderabad", pincode: "500084", 
+      distance: "3.8 km", 
+      price: "₹130", 
+      mrp: "₹640", 
+      rating: 4.0, 
+      isNablCertified: true,
+      supportedTests: ["TEST-CBP-STORE", "TEST-LIP-STORE", "TEST-THY-STORE", "TEST-HBA-STORE", "TEST-LFT-STORE", "TEST-MRI-BRAIN", "TEST-CT-CHEST"]
+    },
+    { 
+      id: "L2", 
+      name: "Tulip Laboratory", 
+      company: "Tulip Health", 
+      isMedplusCollaborated: false, 
+      address: "6-3-248, Begumpet", 
+      city: "Hyderabad", pincode: "500016", 
+      distance: "5.1 km", 
+      price: "₹125", 
+      mrp: "₹620", 
+      rating: 4.2, 
+      isNablCertified: false,
+      supportedTests: ["TEST-CBP-STORE", "TEST-LIP-STORE", "TEST-THY-STORE", "TEST-HBA-STORE", "TEST-LFT-STORE"]
+    },
+    { 
+      id: "L5", 
+      name: "Dr Lal PathLabs", 
+      company: "Dr Lal PathLabs", 
+      isMedplusCollaborated: false, 
+      address: "Flat 2, Ameerpet X Roads", 
+      city: "Hyderabad", pincode: "500016", 
+      distance: "6.4 km", 
+      price: "₹150", 
+      mrp: "₹700", 
+      rating: 4.3, 
+      isNablCertified: false,
+      supportedTests: ["TEST-CBP-STORE", "TEST-LIP-STORE", "TEST-THY-STORE", "TEST-HBA-STORE", "TEST-LFT-STORE", "TEST-XRAY-CHEST"]
+    },
+    { 
+      id: "L4", 
+      name: "Apollo Diagnostics", 
+      company: "Apollo", 
+      isMedplusCollaborated: true, 
+      address: "Road No 36, Jubilee Hills", 
+      city: "Hyderabad", pincode: "500033", 
+      distance: "7.2 km", 
+      price: "₹145", 
+      mrp: "₹680", 
+      rating: 4.7, 
+      isNablCertified: true,
+      supportedTests: ["TEST-CBP-STORE", "TEST-LIP-STORE", "TEST-THY-STORE", "TEST-HBA-STORE", "TEST-LFT-STORE", "TEST-MRI-BRAIN", "TEST-CT-CHEST", "TEST-XRAY-CHEST"]
+    }
   ]
 };
