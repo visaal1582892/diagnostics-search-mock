@@ -142,9 +142,17 @@ const CartPage = () => {
   const formatDate = (d) => d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' });
 
   // Calculating Totals
-  const totalB2B = cartItems.reduce((sum, item) => sum + parseInt((item.b2b || '₹0').replace(/[^0-9]/g, ''), 10), 0);
+  const totalB2B = cartItems.reduce((sum, item) => {
+    // If it's a center visit and no address is selected, price is considered 0
+    if (item.isStorePickup && !item.selectedAddress) return sum;
+    return sum + parseInt((item.b2b || '₹0').replace(/[^0-9]/g, ''), 10);
+  }, 0);
   const homeTrips = homeItems.length > 0 ? 1 : 0; // Assume 1 trip if any home items exist
   const totalAmount = totalB2B + (homeTrips * 50);
+
+  // Check if all center visits have addresses
+  const allCentersSelected = centerItems.every(item => !!item.selectedAddress);
+  const showWarning = centerItems.length > 0 && !allCentersSelected;
 
   return (
     <div className="app-shell min-h-screen bg-[#f1f3f6] pb-28 font-sans text-gray-800">
@@ -180,6 +188,16 @@ const CartPage = () => {
           </div>
         ) : (
           <div className="flex flex-col gap-6 mt-2">
+            {showWarning && (
+              <div className="bg-[#fffbeb] border border-[#fef3c7] p-3 rounded-[10px] flex items-center gap-3 animate-pulse">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d97706" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                  <line x1="12" y1="9" x2="12" y2="13"></line>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <span className="text-[#92400e] text-[0.85rem] font-[700]">Some Center Visit orders do not have addresses selected yet.</span>
+              </div>
+            )}
             <h2 className="m-0 text-[#111827] font-[900] text-[1.4rem]">Review Your Order</h2>
 
             {/* HOME PICKUP SECTION */}
@@ -373,7 +391,12 @@ const CartPage = () => {
 
             <button
               type="button"
-              className="w-full bg-[#111827] text-white rounded-[12px] py-4 font-[800] text-[1.05rem] hover:bg-black transition-colors shadow-md my-4"
+              disabled={showWarning}
+              className={`w-full rounded-[12px] py-4 font-[800] text-[1.05rem] transition-colors shadow-md my-4 ${
+                showWarning 
+                  ? 'bg-[#e5e7eb] text-[#9ca3af] cursor-not-allowed' 
+                  : 'bg-[#111827] text-white hover:bg-black cursor-pointer'
+              }`}
             >
               Proceed to Review — ₹{totalAmount}
             </button>
