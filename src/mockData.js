@@ -7,7 +7,8 @@ export const mockTests = [
     collectionType: "Center Visit Only",
     b2b: "₹120", 
     mrp: "₹600",
-    isStorePickup: true
+    isStorePickup: true,
+    smartOptions: ["TEST-LIP-STORE", "TEST-THY-STORE"]
   },
   { 
     id: "TEST-CBP-HOME", 
@@ -16,7 +17,8 @@ export const mockTests = [
     collectionType: "Home Sample Pickup",
     b2b: "₹170", 
     mrp: "₹650",
-    isHomePickup: true
+    isHomePickup: true,
+    smartOptions: ["TEST-LIP-HOME", "TEST-THY-HOME"]
   },
   { 
     id: "TEST-LIP-STORE", 
@@ -25,7 +27,8 @@ export const mockTests = [
     collectionType: "Center Visit Only",
     b2b: "₹200", 
     mrp: "₹800",
-    isStorePickup: true
+    isStorePickup: true,
+    smartOptions: ["TEST-HBA-STORE", "TEST-LFT-STORE"]
   },
   { 
     id: "TEST-LIP-HOME", 
@@ -34,7 +37,8 @@ export const mockTests = [
     collectionType: "Home Sample Pickup",
     b2b: "₹250", 
     mrp: "₹850",
-    isHomePickup: true
+    isHomePickup: true,
+    smartOptions: ["TEST-HBA-HOME", "TEST-LFT-HOME"]
   },
   { 
     id: "TEST-THY-STORE", 
@@ -43,7 +47,8 @@ export const mockTests = [
     collectionType: "Center Visit Only",
     b2b: "₹300", 
     mrp: "₹750",
-    isStorePickup: true
+    isStorePickup: true,
+    smartOptions: ["TEST-CBP-STORE", "TEST-LIP-STORE"]
   },
   { 
     id: "TEST-THY-HOME", 
@@ -52,7 +57,8 @@ export const mockTests = [
     collectionType: "Home Sample Pickup",
     b2b: "₹350", 
     mrp: "₹800",
-    isHomePickup: true
+    isHomePickup: true,
+    smartOptions: ["TEST-CBP-HOME", "TEST-LIP-HOME"]
   },
   { 
     id: "TEST-HBA-STORE", 
@@ -61,7 +67,8 @@ export const mockTests = [
     collectionType: "Center Visit Only",
     b2b: "₹150", 
     mrp: "₹450",
-    isStorePickup: true
+    isStorePickup: true,
+    smartOptions: ["TEST-CBP-STORE"]
   },
   { 
     id: "TEST-HBA-HOME", 
@@ -70,7 +77,8 @@ export const mockTests = [
     collectionType: "Home Sample Pickup",
     b2b: "₹200", 
     mrp: "₹500",
-    isHomePickup: true
+    isHomePickup: true,
+    smartOptions: ["TEST-CBP-HOME"]
   },
   { 
     id: "TEST-LFT-STORE", 
@@ -88,7 +96,41 @@ export const mockTests = [
     collectionType: "Home Sample Pickup",
     b2b: "₹260", 
     mrp: "₹800",
-    isHomePickup: true
+    isHomePickup: true,
+    smartOptions: ["TEST-HBA-STORE", "TEST-CBP-STORE"]
+  },
+  { 
+    id: "TEST-MRI-BRAIN", 
+    name: "MRI Brain (Plain)", 
+    tag: "Imaging",
+    collectionType: "Center Visit Only",
+    b2b: "₹3500", 
+    mrp: "₹5000",
+    isHomePickup: false,
+    isStorePickup: true,
+    smartOptions: ["TEST-CBP-STORE", "TEST-THY-STORE"]
+  },
+  { 
+    id: "TEST-CT-CHEST", 
+    name: "CT Chest (Plain)", 
+    tag: "Imaging",
+    collectionType: "Center Visit Only",
+    b2b: "₹2800", 
+    mrp: "₹4500",
+    isHomePickup: false,
+    isStorePickup: true,
+    smartOptions: ["TEST-CBP-STORE", "TEST-LFT-STORE"]
+  },
+  { 
+    id: "TEST-XRAY-CHEST", 
+    name: "X-Ray Chest PA View", 
+    tag: "Radiology",
+    collectionType: "Center Visit Only",
+    b2b: "₹400", 
+    mrp: "₹650",
+    isHomePickup: false,
+    isStorePickup: true,
+    smartOptions: ["TEST-CBP-STORE"]
   }
 ];
 
@@ -135,17 +177,17 @@ export const mockUser = {
 // Mock collection centers / pickup addresses for address selection modal
 export const mockPickupLocations = {
   cheapestFirst: [
-    { id: "L1", name: "Vijaya Diagnostic Centre", address: "Plot 9, Software Units Layout, Madhapur", city: "Hyderabad", pincode: "500081", distance: "2.4 km", price: "₹120", mrp: "₹600" },
-    { id: "L2", name: "Tulip Laboratory", address: "6-3-248, Begumpet", city: "Hyderabad", pincode: "500016", distance: "5.1 km", price: "₹125", mrp: "₹620" },
-    { id: "L3", name: "Medlife Labs", address: "Plot 23, Kondapur Main Road", city: "Hyderabad", pincode: "500084", distance: "3.8 km", price: "₹130", mrp: "₹640" },
-    { id: "L4", name: "Apollo Diagnostics", address: "Road No 36, Jubilee Hills", city: "Hyderabad", pincode: "500033", distance: "7.2 km", price: "₹145", mrp: "₹680" },
-    { id: "L5", name: "Dr Lal PathLabs", address: "Flat 2, Ameerpet X Roads", city: "Hyderabad", pincode: "500016", distance: "6.4 km", price: "₹150", mrp: "₹700" }
+    { id: "L1", name: "Vijaya Diagnostic Centre", address: "Plot 9, Software Units Layout, Madhapur", city: "Hyderabad", pincode: "500081", distance: "2.4 km", price: "₹120", mrp: "₹600", rating: 4.5, isNablCertified: true },
+    { id: "L2", name: "Tulip Laboratory", address: "6-3-248, Begumpet", city: "Hyderabad", pincode: "500016", distance: "5.1 km", price: "₹125", mrp: "₹620", rating: 4.2, isNablCertified: false },
+    { id: "L3", name: "Medlife Labs", address: "Plot 23, Kondapur Main Road", city: "Hyderabad", pincode: "500084", distance: "3.8 km", price: "₹130", mrp: "₹640", rating: 4.0, isNablCertified: true },
+    { id: "L4", name: "Apollo Diagnostics", address: "Road No 36, Jubilee Hills", city: "Hyderabad", pincode: "500033", distance: "7.2 km", price: "₹145", mrp: "₹680", rating: 4.7, isNablCertified: true },
+    { id: "L5", name: "Dr Lal PathLabs", address: "Flat 2, Ameerpet X Roads", city: "Hyderabad", pincode: "500016", distance: "6.4 km", price: "₹150", mrp: "₹700", rating: 4.3, isNablCertified: false }
   ],
   nearestFirst: [
-    { id: "L1", name: "Vijaya Diagnostic Centre", address: "Plot 9, Software Units Layout, Madhapur", city: "Hyderabad", pincode: "500081", distance: "2.4 km", price: "₹120", mrp: "₹600" },
-    { id: "L3", name: "Medlife Labs", address: "Plot 23, Kondapur Main Road", city: "Hyderabad", pincode: "500084", distance: "3.8 km", price: "₹130", mrp: "₹640" },
-    { id: "L2", name: "Tulip Laboratory", address: "6-3-248, Begumpet", city: "Hyderabad", pincode: "500016", distance: "5.1 km", price: "₹125", mrp: "₹620" },
-    { id: "L5", name: "Dr Lal PathLabs", address: "Flat 2, Ameerpet X Roads", city: "Hyderabad", pincode: "500016", distance: "6.4 km", price: "₹150", mrp: "₹700" },
-    { id: "L4", name: "Apollo Diagnostics", address: "Road No 36, Jubilee Hills", city: "Hyderabad", pincode: "500033", distance: "7.2 km", price: "₹145", mrp: "₹680" }
+    { id: "L1", name: "Vijaya Diagnostic Centre", address: "Plot 9, Software Units Layout, Madhapur", city: "Hyderabad", pincode: "500081", distance: "2.4 km", price: "₹120", mrp: "₹600", rating: 4.5, isNablCertified: true },
+    { id: "L3", name: "Medlife Labs", address: "Plot 23, Kondapur Main Road", city: "Hyderabad", pincode: "500084", distance: "3.8 km", price: "₹130", mrp: "₹640", rating: 4.0, isNablCertified: true },
+    { id: "L2", name: "Tulip Laboratory", address: "6-3-248, Begumpet", city: "Hyderabad", pincode: "500016", distance: "5.1 km", price: "₹125", mrp: "₹620", rating: 4.2, isNablCertified: false },
+    { id: "L5", name: "Dr Lal PathLabs", address: "Flat 2, Ameerpet X Roads", city: "Hyderabad", pincode: "500016", distance: "6.4 km", price: "₹150", mrp: "₹700", rating: 4.3, isNablCertified: false },
+    { id: "L4", name: "Apollo Diagnostics", address: "Road No 36, Jubilee Hills", city: "Hyderabad", pincode: "500033", distance: "7.2 km", price: "₹145", mrp: "₹680", rating: 4.7, isNablCertified: true }
   ]
 };

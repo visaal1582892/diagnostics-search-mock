@@ -14,7 +14,15 @@ export const CartProvider = ({ children }) => {
 
   // Add items to cart - one per selected patient
   const addToCart = (test, selectedPatientIds, allProfiles) => {
-    const newItems = selectedPatientIds.map(profileId => {
+    // Filter out patient IDs who already have this testId in the cart
+    const patientsToAdd = selectedPatientIds.filter(profileId => {
+      const alreadyHasTest = cartItems.some(item => item.testId === test.id && item.profile.id === profileId);
+      return !alreadyHasTest;
+    });
+
+    if (patientsToAdd.length === 0) return;
+
+    const newItems = patientsToAdd.map(profileId => {
       const profile = allProfiles.find(p => p.id === profileId);
       return {
         cartItemId: `${test.id}-${profileId}-${Date.now()}`,
@@ -74,8 +82,19 @@ export const CartProvider = ({ children }) => {
     }));
   };
 
+  // Update multiple items at once to avoid race conditions
+  const bulkUpdateItems = (updatesMap) => {
+    // updatesMap: { [cartItemId]: { ...updates } }
+    setCartItems(prev => prev.map(item => {
+      if (updatesMap[item.cartItemId]) {
+        return { ...item, ...updatesMap[item.cartItemId] };
+      }
+      return item;
+    }));
+  };
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateCartItem, updateUserCenter, updateAllHomeItems }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateCartItem, updateUserCenter, updateAllHomeItems, bulkUpdateItems }}>
       {children}
     </CartContext.Provider>
   );
