@@ -303,10 +303,10 @@ const CartPage = () => {
                               ) : (
                                 <button
                                   onClick={() => setActiveModalProfileId(profileId)}
-                                  className="w-full flex items-center justify-between text-left bg-white border border-[#99f6e4] rounded-[8px] px-4 py-3 cursor-pointer hover:bg-[#ccfbf1] transition-colors"
+                                  className="w-full flex items-center justify-between text-left bg-white border border-[#99f6e4] rounded-[8px] px-3 py-2 cursor-pointer hover:bg-[#ccfbf1] transition-colors"
                                 >
-                                  <span className="font-[700] text-[#0f766e] text-[0.95rem]">Select Collection Centre (Smart Search)</span>
-                                  <svg width="18" height="18" fill="none" stroke="#0f766e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                  <span className="font-[700] text-[#0f766e] text-[0.65rem]">Select Collection Centre (Smart Search)</span>
+                                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0f766e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                                 </button>
                               )}
                             </div>
