@@ -1,0 +1,397 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f6f7fb;
+  --panel: #ffffff;
+  --text: #131722;
+  --muted: #6b7280;
+  --brand: #e11656;
+  --brand-dark: #b20f45;
+  --accent-yellow: #f7c600;
+  --accent-green: #07b263;
+  --accent-cyan: #14b8d4;
+  --accent-coral: #ff8f8f;
+  --line: #e8eaf0;
+  --radius: .8rem;
+  --shadow: 0 10px 24px rgba(16, 24, 40, .08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: BasicSans, system-ui, sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, #f8f9fd, #eef2f8);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.mp-header {
+  background: #d9232d;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.mp-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  width: 100%;
+  gap: 10px;
+}
+
+.mp-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mp-menu-btn {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.mp-hamburger {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+.mp-logo-link {
+  display: flex;
+  align-items: center;
+}
+
+.mp-logo-text {
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: .4px;
+  white-space: nowrap;
+}
+
+.mp-logo-plus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 4px;
+  background: #fff;
+  color: #d9232d;
+  font-size: .85rem;
+  font-weight: 900;
+  margin-left: 2px;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.mp-loc-city {
+  color: #fff;
+  font-weight: 700;
+  font-size: .82rem;
+  letter-spacing: .3px;
+}
+
+.mp-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mp-icon-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.mp-cart-btn {
+  position: relative;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+.mp-cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #fff;
+  color: #d9232d;
+  font-size: .7rem;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  line-height: 1;
+}
+
+.mp-header-title-bar {
+  background: #00000026;
+  padding: 6px 14px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.mp-title-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.mp-loc-icon {
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.main-panel {
+  width: 100%;
+  padding: 14px 14px 80px;
+  flex: 1;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.city-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+}
+
+.city-strip h3 {
+  margin: 0;
+  font-size: .95rem;
+}
+
+.city-strip p {
+  margin: 0;
+  font-size: .75rem;
+}
+
+.city-strip-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.change-loc-btn {
+  background: none;
+  border: none;
+  color: #d9232d;
+  font-weight: 600;
+  font-size: .82rem;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  text-decoration: underline;
+}
+
+.muted {
+  color: var(--muted);
+  margin: .25rem 0;
+}
+
+.hero {
+  color: #fff;
+}
+
+.hero h2 {
+  margin: 4px 0;
+}
+
+.hero-overline {
+  margin: 0;
+  font-weight: 600;
+}
+
+.gradient-red {
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+  border: none;
+}
+
+.cta {
+  margin-top: 10px;
+  border: none;
+  background: #111827;
+  color: #fff;
+  border-radius: .8rem;
+  padding: 10px 14px;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.offer-banner-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.offer-banner {
+  border-radius: .8rem;
+  padding: 16px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.offer-banner h3 {
+  margin: 6px 0 4px;
+  font-size: 1rem;
+}
+
+.offer-banner p {
+  margin: 0;
+  font-size: .78rem;
+  line-height: 1.4;
+}
+
+.offer-banner-coral {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.offer-banner-purple {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+}
+
+.offer-badge {
+  display: inline-block;
+  background: #ffffff40;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .8px;
+}
+
+.main-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.main-tab {
+  border: none;
+  border-radius: .8rem;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 700;
+  padding: 12px 4px;
+  color: #fff;
+  transition: background .15s, transform .15s;
+  min-width: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.main-tab:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.tab-diagnostics {
+  background: linear-gradient(135deg, #0d9488, #14b8a6, #2dd4bf);
+  color: #022c22;
+}
+
+.tab-diagnostics .main-tab-icon {
+  stroke: #022c22;
+}
+
+.tab-diagnostics .main-tab-title {
+  color: #022c22;
+}
+
+.tab-pharmacy {
+  background: linear-gradient(135deg, #2563eb, #3b82f6, #60a5fa);
+  color: #0c1a3d;
+}
+
+.tab-pharmacy .main-tab-icon {
+  stroke: #0c1a3d;
+}
+
+.tab-pharmacy .main-tab-title {
+  color: #0c1a3d;
+}
+
+.tab-doctors {
+  background: linear-gradient(135deg, #7c3aed, #8b5cf6, #a78bfa);
+  color: #1e0a3e;
+}
+
+.tab-doctors .main-tab-icon {
+  stroke: #1e0a3e;
+}
+
+.tab-doctors .main-tab-title {
+  color: #1e0a3e;
+}
+
+.main-tab-icon {
+  flex-shrink: 0;
+  stroke: #fff;
+}
+
+.main-tab-title {
+  font-size: .85rem;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .main-panel {
+    padding: 18px 20px 24px;
+  }
+  .main-tab-title {
+    font-size: 1rem;
+  }
+}
