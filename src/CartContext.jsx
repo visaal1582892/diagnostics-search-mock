@@ -13,7 +13,7 @@ export const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   // Add items to cart - one per selected patient
-  const addToCart = (test, selectedPatientIds, allProfiles) => {
+  const addToCart = React.useCallback((test, selectedPatientIds, allProfiles) => {
     // Filter out patient IDs who already have this testId in the cart
     const patientsToAdd = selectedPatientIds.filter(profileId => {
       const alreadyHasTest = cartItems.some(item => item.testId === test.id && item.profile.id === profileId);
@@ -45,20 +45,20 @@ export const CartProvider = ({ children }) => {
     });
 
     setCartItems(prev => [...prev, ...newItems]);
-  };
+  }, [cartItems]);
 
-  const removeFromCart = (cartItemId) => {
+  const removeFromCart = React.useCallback((cartItemId) => {
     setCartItems(prev => prev.filter(item => item.cartItemId !== cartItemId));
-  };
+  }, []);
 
-  const updateCartItem = (cartItemId, updates) => {
+  const updateCartItem = React.useCallback((cartItemId, updates) => {
     setCartItems(prev =>
       prev.map(item => item.cartItemId === cartItemId ? { ...item, ...updates } : item)
     );
-  };
+  }, []);
 
   // Bulk update all store-pickup tests for a specific profile when a center is selected
-  const updateUserCenter = (profileId, location) => {
+  const updateUserCenter = React.useCallback((profileId, location) => {
     setCartItems(prev => prev.map(item => {
       if (item.isStorePickup && item.profile.id === profileId) {
         return {
@@ -68,20 +68,20 @@ export const CartProvider = ({ children }) => {
       }
       return item;
     }));
-  };
+  }, []);
 
   // Bulk update all home-pickup tests with a common address/date/slot
-  const updateAllHomeItems = (updates) => {
+  const updateAllHomeItems = React.useCallback((updates) => {
     setCartItems(prev => prev.map(item => {
       if (item.isHomePickup) {
         return { ...item, ...updates };
       }
       return item;
     }));
-  };
+  }, []);
 
   // Update multiple items at once to avoid race conditions
-  const bulkUpdateItems = (updatesMap) => {
+  const bulkUpdateItems = React.useCallback((updatesMap) => {
     // updatesMap: { [cartItemId]: { ...updates } }
     setCartItems(prev => prev.map(item => {
       if (updatesMap[item.cartItemId]) {
@@ -89,7 +89,7 @@ export const CartProvider = ({ children }) => {
       }
       return item;
     }));
-  };
+  }, []);
 
   return (
     <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateCartItem, updateUserCenter, updateAllHomeItems, bulkUpdateItems }}>

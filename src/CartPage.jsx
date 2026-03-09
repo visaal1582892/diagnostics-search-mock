@@ -132,14 +132,23 @@ const CenterSelectionInline = ({ onSelect, currentSelectedId, globalFilters, pat
                   {opt.type === 'combo' ? (
                     <div className="flex flex-col gap-1">
                       <span className="bg-[#111827] text-white text-[0.55rem] font-[900] px-1.5 py-0.5 rounded-full w-fit uppercase tracking-tighter mb-1">Center Combination</span>
-                      <h4 className="m-0 text-[0.85rem] font-[900] text-[#111827] leading-tight">{opt.centers[0].name}</h4>
-                      <div className="flex items-center gap-1.5 text-[0.7rem] text-[#6b7280] font-[600]">
-                         <span className="text-[#0f766e] font-[800]">Fits:</span> {opt.testsByCenter[0].map(t => t.testName).join(', ')}
-                      </div>
-                      <h4 className="m-0 mt-1.5 text-[0.85rem] font-[900] text-[#111827] leading-tight">{opt.centers[1].name}</h4>
-                      <div className="flex items-center gap-1.5 text-[0.7rem] text-[#6b7280] font-[600]">
-                         <span className="text-[#0f766e] font-[800]">Fits:</span> {opt.testsByCenter[1].map(t => t.testName).join(', ')}
-                      </div>
+                      {opt.centers.map((center, idx) => (
+                        <div key={center.id} className={`${idx > 0 ? 'mt-3 pt-2 border-t border-gray-100' : ''}`}>
+                          <h4 className="m-0 text-[0.85rem] font-[900] text-[#111827] leading-tight flex items-center gap-2">
+                            {center.name}
+                            <span className="bg-[#f3f4f6] text-[#6b7280] text-[0.6rem] font-[800] px-1.5 py-0.5 rounded-full">Center {idx + 1}</span>
+                          </h4>
+                          <div className="flex flex-col gap-1 mt-1.5">
+                            {opt.testsByCenter[idx].map(t => (
+                              <div key={t.cartItemId} className="flex items-center gap-1.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#0f766e]"></span>
+                                <span className="text-[0.7rem] text-[#374151] font-[700]">{t.testName}</span>
+                                <span className="text-[0.6rem] text-[#6b7280] font-[600]">({t.profile.name})</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   ) : (
                     <h4 className="m-0 text-[0.85rem] font-[800] text-[#111827] leading-tight">{opt.name}</h4>
@@ -274,7 +283,7 @@ const ReviewModal = ({ onClose, cartItems, totalAmount, homeTrips }) => {
 // Redesigned "Marketed" Smart Add-ons Component
 // ——————————————————————————————
 const SmartAddons = ({ testId, patientId, isHome, sharedAddress, addToCart, updateUserCenter, updateAllHomeItems, updateCartItem, bulkUpdateItems, allHomeAddresses, slots, cartItems }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const currentTest = mockTests.find(t => t.id === testId);
   if (!currentTest?.smartOptions) return null;
 
@@ -361,6 +370,62 @@ const SmartAddons = ({ testId, patientId, isHome, sharedAddress, addToCart, upda
 
 
 // ——————————————————————————————
+// Test Row Component (extracted for reuse in grouping)
+// ——————————————————————————————
+const TestRow = ({ item, sharedAddress, removeFromCart, currentProfileId, addToCart, updateUserCenter, updateCartItem, bulkUpdateItems, cartItems }) => {
+  const slots = ['07:00 AM', '08:00 AM', '09:00 AM', '05:00 PM', '06:00 PM'];
+  return (
+    <React.Fragment>
+      <div className="flex justify-between items-stretch pt-3 pb-2 first:pt-0 border-t border-[#f0f0f0] first:border-0 w-full">
+        <div className="flex flex-col justify-start min-w-0">
+          <h4 className="m-0 text-[1rem] md:text-[1.1rem] font-[900] text-[#111827] leading-tight truncate">{item.testName}</h4>
+          <p className="m-0 text-[#6b7280] text-[0.75rem] mt-1 font-[600]">Patient: <span className="text-[#111827]">{item.profile.name}</span></p>
+          {sharedAddress?.type === 'combo' && (
+            <div className="mt-2 flex flex-wrap items-center gap-1.5">
+              <span className="bg-[#ccfbf1]/50 border border-[#99f6e4] text-[#0f766e] text-[0.55rem] font-[900] px-1.5 py-0.5 rounded-[4px] uppercase tracking-wider">Assigned</span>
+              <span className="text-[#111827] text-[0.7rem] font-[800] truncate">
+                {sharedAddress.testsByCenter[0].some(t => t.cartItemId === item.cartItemId) ? sharedAddress.centers[0].name : sharedAddress.centers[1].name}
+              </span>
+            </div>
+          )}
+        </div>
+        <div className="flex flex-col items-end shrink-0 pl-4 text-right">
+          <div className="mb-2 min-h-[1.5rem] flex items-end">
+            {sharedAddress && (
+              <span className="font-[900] text-[#111827] text-[1.1rem] md:text-[1.2rem] block leading-none">
+                {item.b2b}
+              </span>
+            )}
+          </div>
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log('Removing cart item:', item.cartItemId);
+              removeFromCart(item.cartItemId);
+            }} 
+            className="text-[#ef4444] text-[0.7rem] font-[800] hover:underline bg-transparent border-none p-0 mt-auto uppercase tracking-widest transition-all hover:text-red-600"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+      <SmartAddons
+        testId={item.testId}
+        patientId={currentProfileId}
+        isHome={false}
+        sharedAddress={sharedAddress}
+        addToCart={addToCart}
+        updateUserCenter={updateUserCenter}
+        updateCartItem={updateCartItem}
+        bulkUpdateItems={bulkUpdateItems}
+        slots={slots}
+        cartItems={cartItems}
+      />
+    </React.Fragment>
+  );
+};
+
+// ——————————————————————————————
 // Cart Page
 // ——————————————————————————————
 const CartPage = () => {
@@ -397,14 +462,6 @@ const CartPage = () => {
     }
   }, [cartItems, slots, bulkUpdateItems]);
 
-  // Default address selection for home items
-  useEffect(() => {
-    if (homeItems.length > 0 && allHomeAddresses.length > 0) {
-      if (!homeItems[0].selectedAddress) {
-        updateAllHomeItems({ selectedAddress: `${allHomeAddresses[0].tag} - ${allHomeAddresses[0].line1}` });
-      }
-    }
-  }, [homeItems, allHomeAddresses, updateAllHomeItems]);
 
   const centerItemsByProfile = centerItems.reduce((acc, item) => {
     if (!acc[item.profile.id]) acc[item.profile.id] = [];
@@ -412,7 +469,16 @@ const CartPage = () => {
     return acc;
   }, {});
 
-  const profileIds = Object.keys(centerItemsByProfile);
+  const profileIds = useMemo(() => Object.keys(centerItemsByProfile), [cartItems]);
+
+  useEffect(() => {
+    if (!selectedProfileId && profileIds.length > 0) {
+      setSelectedProfileId(profileIds[0]);
+    } else if (selectedProfileId && !profileIds.includes(selectedProfileId)) {
+      setSelectedProfileId(profileIds.length > 0 ? profileIds[0] : null);
+    }
+  }, [profileIds, selectedProfileId]);
+
   const currentProfileId = (selectedProfileId && profileIds.includes(selectedProfileId))
     ? selectedProfileId
     : (profileIds[0] || null);
@@ -670,47 +736,53 @@ const CartPage = () => {
                     return (
                       <div className="flex flex-col gap-3">
                         <div className="bg-[#f9fafb] p-3 rounded-[12px] border border-[#f0f0f0]">
-                          <div className="space-y-3">
-                            {items.map(item => (
-                              <React.Fragment key={item.cartItemId}>
-                                <div className="flex justify-between items-stretch pt-3 pb-2 first:pt-0 border-t border-[#f0f0f0] first:border-0 w-full">
-                                  <div className="flex flex-col justify-start">
-                                    <h4 className="m-0 text-[1.1rem] md:text-[1.15rem] font-[900] text-[#111827] leading-tight">{item.testName}</h4>
-                                    <p className="m-0 text-[#6b7280] text-[0.8rem] mt-1 font-[600]">Patient: <span className="text-[#111827]">{item.profile.name}</span></p>
-                                    {sharedAddress?.type === 'combo' && (
-                                      <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                                        <span className="bg-[#ccfbf1]/50 border border-[#99f6e4] text-[#0f766e] text-[0.55rem] font-[900] px-1.5 py-0.5 rounded-[4px] uppercase tracking-wider">Assigned Center</span>
-                                        <span className="text-[#111827] text-[0.75rem] font-[800] line-clamp-1">
-                                          {sharedAddress.testsByCenter[0].some(t => t.cartItemId === item.cartItemId) ? sharedAddress.centers[0].name : sharedAddress.centers[1].name}
-                                        </span>
-                                      </div>
-                                    )}
-                                  </div>
-                                  <div className="flex flex-col items-end shrink-0 pl-4 text-right">
-                                    <div className="mb-2 min-h-[1.5rem] flex items-end">
-                                      {sharedAddress && (
-                                        <span className="font-[900] text-[#111827] text-[1.2rem] md:text-[1.3rem] block leading-none">
-                                          {item.b2b}
-                                        </span>
-                                      )}
+                          <div className="space-y-4">
+                            {sharedAddress?.type === 'combo' ? (
+                              sharedAddress.centers.map((center, centerIdx) => (
+                                <div key={center.id} className={`${centerIdx > 0 ? 'mt-6 pt-4 border-t border-dashed border-gray-200' : ''}`}>
+                                  <div className="flex items-center justify-between mb-3 px-1">
+                                    <div className="flex items-center gap-2">
+                                      <div className="w-6 h-6 rounded-full bg-[#111827] text-white flex items-center justify-center text-[0.65rem] font-[1000]">{centerIdx + 1}</div>
+                                      <h5 className="m-0 text-[0.8rem] font-[900] text-[#111827] uppercase tracking-wider">{center.name} Visit</h5>
                                     </div>
-                                    <button onClick={() => removeFromCart(item.cartItemId)} className="text-[#ef4444] text-[0.75rem] font-[800] hover:underline bg-transparent border-none p-0 mt-auto uppercase tracking-widest transition-all hover:text-red-600">Remove Test</button>
+                                    <span className="bg-[#f3f4f6] text-[#6b7280] text-[0.6rem] font-[800] px-2 py-0.5 rounded-full">
+                                      {sharedAddress.testsByCenter[centerIdx].length} {sharedAddress.testsByCenter[centerIdx].length === 1 ? 'Test' : 'Tests'}
+                                    </span>
+                                  </div>
+                                  <div className="space-y-3">
+                                    {sharedAddress.testsByCenter[centerIdx].map(item => (
+                                      <TestRow 
+                                        key={item.cartItemId} 
+                                        item={item} 
+                                        sharedAddress={sharedAddress} 
+                                        removeFromCart={removeFromCart}
+                                        currentProfileId={currentProfileId}
+                                        addToCart={addToCart}
+                                        updateUserCenter={updateUserCenter}
+                                        updateCartItem={updateCartItem}
+                                        bulkUpdateItems={bulkUpdateItems}
+                                        cartItems={cartItems}
+                                      />
+                                    ))}
                                   </div>
                                 </div>
-                                <SmartAddons
-                                  testId={item.testId}
-                                  patientId={currentProfileId}
-                                  isHome={false}
-                                  sharedAddress={sharedAddress}
+                              ))
+                            ) : (
+                              items.map(item => (
+                                <TestRow 
+                                  key={item.cartItemId} 
+                                  item={item} 
+                                  sharedAddress={sharedAddress} 
+                                  removeFromCart={removeFromCart}
+                                  currentProfileId={currentProfileId}
                                   addToCart={addToCart}
                                   updateUserCenter={updateUserCenter}
                                   updateCartItem={updateCartItem}
                                   bulkUpdateItems={bulkUpdateItems}
-                                  slots={slots}
                                   cartItems={cartItems}
                                 />
-                              </React.Fragment>
-                            ))}
+                              ))
+                            )}
                           </div>
                         </div>
 
